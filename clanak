@@ -1,0 +1,64 @@
+<?php
+   include 'connect.php';
+   define('UPLPATH', 'img/');
+   $id =$_GET['id'];
+   $query = "SELECT * FROM vijest WHERE id='$id'";
+   $result = mysqli_query($dbc, $query);
+   
+?>
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <meta charset="utf-8" />
+      <link rel="shortcut icon" type="image/png" href="favicon.png" />
+      <title>L'Express</title>
+   </head>
+</html>
+<body>
+   <header>
+      <div class="logo">
+         <img src="lexpress.png" alt="logo" class="logoslika"><br>
+      </div>
+      <nav>
+         <ul class="container">
+            <li><a href="index.php">Početna</a></li>
+            <li><a href="kategorija.php?id=vijest">Vijesti</a></li>
+            <li><a href="kategorija.php?id=sport">Sport</a></li>
+            <li><a href="administracija.php">Administracija</a></li>
+            <li><a href="unos.php">Unos</a></li>
+         </ul>
+      </nav>
+   </header>
+   <div class="containerColor">
+      <?php
+         while($row = mysqli_fetch_array($result)){
+           $id = $row['kategorija'];
+           echo '<div class="ClanakCssNaslov">
+                   <h5 class="title">'. $row['kategorija'] .'</h5>
+               </div>
+               <div class="ClanakCss">
+                   <h1 class="title">'. $row['naslov'] .'</h1>
+                   <h6 class="date">'. $row['datum'] .'</h6>
+                </div>
+               <section class="slika">
+                   <img class="prikazSlike" src="'.UPLPATH . $row['slika'].'">
+               </section>
+               <section class="about">
+                   <p><i>'.$row['sazetak'].'</i></p>
+               </section>
+               <section class="about">
+                   <p>'.$row['tekst'].'</p>       
+               </section>'; 
+         }  
+         ?>
+   </div>
+   <div class="footerColor">
+      <footer class="containerColor">
+         <p>Izradila : Marija Ljubičić, 2020.god</p>
+         <p>e-mail: mljubicic@tvz.hr</p>
+      </footer>
+   </div>
+</body>
