@@ -1,0 +1,89 @@
+<?php
+   include 'connect.php';
+   define ('UPLPATH', 'img/');
+?>
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <meta charset="utf-8" />
+      <link rel="shortcut icon" type="image/png" href="favicon.png" />
+      <title>L'Express</title>
+   </head>
+</html>
+<body>
+   <header>
+      <div class="logo">
+         <img src="lexpress.png" alt="logo" class="logoslika"><br>
+      </div>
+      <nav>
+         <ul class="container">
+            <li><a href="index.php">Početna</a></li>
+            <li><a href="kategorija.php?id=vijest">Vijesti</a></li>
+            <li><a href="kategorija.php?id=sport">Sport</a></li>
+            <li><a href="administracija.php">Administracija</a></li>
+            <li><a href="unos.php">Unos</a></li>
+         </ul>
+      </nav>
+   </header>
+   <div class="containerColor">
+      <h2>Vijesti</h2>
+      <section class="boxes">
+         <?php
+            $query = "SELECT * FROM vijest WHERE arhiva=0 AND kategorija='vijest' LIMIT 4";
+            $result = mysqli_query($dbc, $query);
+            $i = 0;
+            while($row = mysqli_fetch_array($result)) {
+                echo '<article class="box">';
+                    echo '<div class="articleBox">';
+                    echo '<a href="clanak.php?id='.$row['id'].'"><img src="'. UPLPATH . $row ['slika'] .'"</a>';
+                    echo '<div class="media_body">';
+                    echo '<h4 class="title">';
+                    echo '<a href="clanak.php?id='.$row['id'].'">';
+                    echo '<div class="red">'.$row['naslov'].'</div>';
+                    echo '</a></h4>';
+                    echo '<h6>';
+                    echo '<a href="clanak.php?id='.$row['id'].'">';
+                    echo '<div>'.$row['sazetak'].'</div>';
+                    echo '</a></h6>';
+                    echo '</div>';
+                echo '</article>';
+            }
+            ?>
+      </section>
+   </div>
+   <div class="containerColor">
+      <h2>Sport</h2>
+      <section class="boxes">
+         <?php
+            $query = "SELECT * FROM vijest WHERE arhiva=0 AND kategorija='sport' LIMIT 4";
+            $result = mysqli_query($dbc, $query);
+            $i = 0;
+            while($row = mysqli_fetch_array($result)) {
+                echo '<article class="box">';
+                    echo '<div class="articleBox">';
+                    echo '<a href="clanak.php?id='.$row['id'].'"><img src="'. UPLPATH . $row ['slika'] .'"</a>';
+                    echo '<div class="media_body">';
+                    echo '<h4 class="title">';
+                    echo '<a href="clanak.php?id='.$row['id'].'">';
+                    echo '<div class="red">'.$row['naslov'].'</div>';
+                    echo '</a></h4>';
+                    echo '<h6 class="sadrzajkratki">';
+                    echo '<a href="clanak.php?id='.$row['id'].'">';
+                    echo '<div>'.$row['sazetak'].'</div>';
+                    echo '</a></h6>';
+                    echo '</div>';
+                echo '</article>';
+            }
+            ?>
+      </section>
+   </div>
+   <div class="footerColor">
+      <footer class="containerColor">
+         <p>Izradila : Marija Ljubičić, 2020.god</p>
+         <p>e-mail: mljubicic@tvz.hr</p>
+      </footer>
+   </div>
+</body>
